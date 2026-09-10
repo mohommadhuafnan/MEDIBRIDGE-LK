@@ -9,6 +9,7 @@ yarn-error.log*
 .env.local
 *.env
 !.env.example
+!.env.production
 
 # Next.js build
 .next/

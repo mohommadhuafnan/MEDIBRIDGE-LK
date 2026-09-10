@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: medibridge-lk-backend
+    name: medibridge-backend-36j2
     env: node
     rootDir: backend
     plan: free

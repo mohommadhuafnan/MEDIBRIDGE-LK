@@ -1,4 +1,8 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://medibridge-backend-36j2.onrender.com/api'
+    : 'http://localhost:5000/api');
 
 export function formatLKR(amount: number): string {
   return `Rs. ${Number(amount).toLocaleString('en-LK', {
