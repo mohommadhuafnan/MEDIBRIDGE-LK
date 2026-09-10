@@ -53,6 +53,19 @@ export default function PrescriptionAnalysisPage() {
   // Editable items
   const [editableMedicines, setEditableMedicines] = useState<any[]>([]);
 
+  // Check if a prescription image was dropped/uploaded on the homepage
+  React.useEffect(() => {
+    try {
+      const pending = sessionStorage.getItem('medibridge_pending_prescription');
+      if (pending) {
+        setImagePreview(pending);
+        sessionStorage.removeItem('medibridge_pending_prescription');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];

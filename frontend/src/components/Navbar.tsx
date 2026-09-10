@@ -49,54 +49,54 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between py-3.5">
         {/* Professional Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group shrink-0">
-          <div className="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-sm group-hover:bg-brand-700 transition-colors">
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-sm group-hover:bg-brand-700 transition-colors">
             <Activity className="w-5 h-5" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-xl tracking-tight text-slate-900">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900">
                 MediBridge <span className="text-brand-600">LK</span>
               </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
                 Sri Lanka
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 hidden sm:block font-medium">
+            <p className="text-[10px] text-slate-500 hidden xl:block font-medium">
               {t('Understand Your Medicine. Know Your Cost.')}
             </p>
           </div>
         </Link>
 
         {/* Desktop Navigation Links - Fully Translated */}
-        <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-600">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs xl:text-sm font-medium text-slate-600">
           <Link
             href="/#how-it-works"
-            className="hover:text-brand-600 transition-colors"
+            className="hover:text-brand-600 transition-colors whitespace-nowrap"
           >
             {t('How It Works')}
           </Link>
           <Link
             href="/#features"
-            className="hover:text-brand-600 transition-colors"
+            className="hover:text-brand-600 transition-colors whitespace-nowrap"
           >
             {t('Features')}
           </Link>
           <Link
             href="/dashboard/medicines"
-            className="hover:text-brand-600 transition-colors"
+            className="hover:text-brand-600 transition-colors whitespace-nowrap"
           >
             {t('Medicines Directory')}
           </Link>
           <Link
             href="/dashboard/prices"
-            className="hover:text-brand-600 transition-colors"
+            className="hover:text-brand-600 transition-colors whitespace-nowrap"
           >
             {t('NMRA Prices')}
           </Link>
           <Link
             href="/dashboard/pharmacies"
-            className="hover:text-brand-600 transition-colors"
+            className="hover:text-brand-600 transition-colors whitespace-nowrap"
           >
             {t('For Pharmacies')}
           </Link>
