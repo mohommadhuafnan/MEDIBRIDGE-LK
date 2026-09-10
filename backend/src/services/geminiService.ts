@@ -1,8 +1,13 @@
 import axios from 'axios';
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
-// Models to try in priority
-const GEMINI_MODELS = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-flash-latest'];
+// Models to try in priority (Active Google Gemini Vision & LLM APIs)
+const GEMINI_MODELS = [
+  'gemini-3.6-flash',
+  'gemini-3.5-flash-lite',
+  'gemini-3.5-flash',
+  'gemini-flash-latest',
+];
 
 interface ExtractedMedicineAI {
   detected_name: string;
