@@ -4,8 +4,9 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 // Models to try in priority (Active Google Gemini Vision & LLM APIs)
 // Active Google Gemini Vision & LLM APIs (Tested and verified for Sri Lanka healthcare)
 const GEMINI_MODELS = [
-  'gemini-3.1-flash-lite-preview',
   'gemini-3.6-flash',
+  'gemini-3.7-flash',
+  'gemini-3.1-flash-lite-preview',
   'gemini-flash-latest',
   'gemini-flash-lite-latest',
 ];

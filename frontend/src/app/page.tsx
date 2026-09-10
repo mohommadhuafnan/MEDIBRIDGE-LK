@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CinematicVideoShowcase from '../components/CinematicVideoShowcase';
 import GoogleReviewsSection from '../components/GoogleReviewsSection';
+import FaqSection from '../components/FaqSection';
 import { useLanguage } from '../context/LanguageContext';
 import { formatLKR } from '../lib/api';
 import {
@@ -405,6 +406,9 @@ export default function HomePage() {
 
         {/* GOOGLE REVIEWS SECTION (SINGLE LINE INFINITE MARQUEE) */}
         <GoogleReviewsSection />
+
+        {/* FREQUENTLY ASKED QUESTIONS (Q&A) SECTION */}
+        <FaqSection />
 
         {/* CTA HERO BANNER */}
         <section className="py-16 bg-gradient-to-r from-brand-600 via-brand-700 to-medgreen-700 text-white relative overflow-hidden">

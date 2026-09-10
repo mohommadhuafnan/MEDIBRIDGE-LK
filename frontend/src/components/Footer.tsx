@@ -136,18 +136,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Disclaimers & Regulatory Notices */}
-        <div className="py-8 border-b border-slate-800 text-[11px] text-slate-400 space-y-3 leading-relaxed">
-          <p>
-            <strong className="text-slate-300">Medical Advice Disclaimer:</strong> MediBridge LK provides medicine information, prescription interpretation assistance and price information for educational and affordability purposes. It does not replace professional medical advice. Do not start, stop or change a medicine or brand without consulting a qualified doctor or pharmacist.
-          </p>
-          <p>
-            <strong className="text-slate-300">Price Transparency Notice:</strong> Prices shown are based on available verified NMRA gazetted Maximum Retail Price (MRP) regulations and participating pharmacy feeds. Prices may vary by pharmacy, location, batch, and date. Always confirm the final checkout price with the dispensing pharmacy.
-          </p>
-          <p>
-            <strong className="text-slate-300">AI Extraction Notice:</strong> Prescription text is AI-extracted and may contain errors. Always verify the extracted medicine information against your physical doctor&apos;s prescription.
-          </p>
-        </div>
 
         {/* Copyright */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">

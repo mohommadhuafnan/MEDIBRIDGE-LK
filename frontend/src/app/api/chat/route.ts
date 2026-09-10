@@ -3,11 +3,11 @@ import { NextResponse } from 'next/server';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 
 const GEMINI_MODELS = [
-  'gemini-1.5-flash',
-  'gemini-2.0-flash',
-  'gemini-1.5-pro',
-  'gemini-flash-latest',
+  'gemini-3.6-flash',
+  'gemini-3.7-flash',
   'gemini-3.1-flash-lite-preview',
+  'gemini-flash-latest',
+  'gemini-flash-lite-latest',
 ];
 
 const SYSTEM_PROMPT = `You are MediBridge LK's official AI Health & Medicine Assistant, a warm, knowledgeable, and reliable healthcare assistant for Sri Lankan patients, families, and caregivers.
