@@ -38,7 +38,7 @@ export default function AuthForm({ initialSignUp = false }: AuthFormProps) {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   const router = useRouter();
-  const { login, register, demoLogin } = useAuth();
+  const { login, register, demoLogin, signInWithGoogle } = useAuth();
   const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -61,31 +61,18 @@ export default function AuthForm({ initialSignUp = false }: AuthFormProps) {
     setIsSubmitting(false);
   };
 
-  // Google Sign-In with Firebase Auth Support
+  // Google Sign-In with Live Firebase Auth Support
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true);
     setError('');
 
     try {
-      // Direct call to backend Google endpoint
-      const res = await apiFetch('/auth/google', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: 'patient.verified@gmail.com',
-          name: 'Sunil Jayawardena (Google Verified)',
-          google_id: 'google-oauth-10928374',
-        }),
-      });
-
-      if (res.success && res.token) {
-        localStorage.setItem('medibridge_token', res.token);
-        localStorage.setItem('medibridge_user', JSON.stringify(res.user));
-        router.push('/dashboard');
-      } else {
-        setError(res.message || 'Google Sign-In failed');
+      const res = await signInWithGoogle();
+      if (!res.success) {
+        setError(res.message || 'Google Sign-In failed. Please check popup permissions.');
       }
     } catch (err: any) {
-      setError('Unable to authenticate with Google. Please try again.');
+      setError(err?.message || 'Unable to authenticate with Google. Please try again.');
     } finally {
       setIsGoogleLoading(false);
     }

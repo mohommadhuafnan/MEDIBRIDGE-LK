@@ -2,15 +2,31 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Mail, ArrowLeft, CheckCircle2, Activity } from 'lucide-react';
+import { Mail, ArrowLeft, CheckCircle2, Activity, AlertCircle } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const { sendPasswordReset } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email) return;
+
+    setError('');
+    setLoading(true);
+
+    const res = await sendPasswordReset(email);
+    setLoading(false);
+
+    if (res.success) {
+      setSubmitted(true);
+    } else {
+      setError(res.message || 'Failed to send password reset email. Please verify the address.');
+    }
   };
 
   return (
@@ -22,18 +38,25 @@ export default function ForgotPasswordPage() {
 
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Reset Password</h2>
         <p className="text-xs text-slate-500 mt-1 mb-6">
-          Enter your registered MediBridge LK email to receive a password reset link.
+          Enter your registered MediBridge LK email to receive a Firebase secure password reset link.
         </p>
+
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2 text-left">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
 
         {submitted ? (
           <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-emerald-800 text-xs space-y-3">
             <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
             <p className="font-semibold">Reset Instructions Sent!</p>
             <p className="text-emerald-700">
-              We have sent an email to <strong>{email}</strong> with a secure link to reset your password.
+              We have dispatched an email to <strong>{email}</strong> with instructions to reset your password.
             </p>
             <Link
-              href="/auth"
+              href="/login"
               className="inline-block mt-2 font-bold text-brand-700 hover:text-brand-800"
             >
               Return to Sign In
@@ -58,14 +81,19 @@ export default function ForgotPasswordPage() {
 
             <button
               type="submit"
-              className="w-full py-3 px-4 rounded-xl text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm transition-all"
+              disabled={loading}
+              className="w-full py-3 px-4 rounded-xl text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm transition-all disabled:opacity-60 flex items-center justify-center gap-2"
             >
-              Send Reset Link
+              {loading ? (
+                <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+              ) : (
+                'Send Reset Link'
+              )}
             </button>
 
             <div className="text-center pt-2">
               <Link
-                href="/auth"
+                href="/login"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />

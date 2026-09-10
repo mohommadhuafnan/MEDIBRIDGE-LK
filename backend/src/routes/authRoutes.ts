@@ -233,17 +233,64 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// Google Authentication
+// Google & Firebase Authentication
 router.post('/google', async (req: Request, res: Response): Promise<void> => {
   try {
-    const { email, name, google_id } = req.body;
+    const { email, name, google_id, photo_url } = req.body;
     const cleanEmail = (email || 'google.user@medibridge.lk').toLowerCase().trim();
     const fullName = name || 'Google Verified Patient';
+    const firebaseUid = google_id || `firebase-${Date.now()}`;
 
+    // 1. Check MongoDB if active
+    if (mongoose.connection.readyState === 1) {
+      try {
+        let dbUser = await User.findOne({
+          $or: [{ email: cleanEmail }, { firebase_uid: firebaseUid }],
+        });
+
+        if (!dbUser) {
+          dbUser = await User.create({
+            firebase_uid: firebaseUid,
+            email: cleanEmail,
+            full_name: fullName,
+            role: 'PATIENT',
+            onboarding_completed: true,
+            preferred_language: 'en',
+            district: 'Colombo',
+            city: 'Colombo 03',
+          });
+        } else if (!dbUser.firebase_uid) {
+          dbUser.firebase_uid = firebaseUid;
+          await dbUser.save();
+        }
+
+        const token = jwt.sign({ id: dbUser._id, role: dbUser.role }, JWT_SECRET, { expiresIn: '7d' });
+        res.json({
+          success: true,
+          token,
+          user: {
+            id: dbUser._id,
+            full_name: dbUser.full_name,
+            email: dbUser.email,
+            role: dbUser.role,
+            onboarding_completed: dbUser.onboarding_completed,
+            preferred_language: dbUser.preferred_language,
+            district: dbUser.district,
+            city: dbUser.city,
+            photo_url: photo_url || undefined,
+          },
+        });
+        return;
+      } catch (dbErr) {
+        console.warn('[DB Google Auth Fallback]', dbErr);
+      }
+    }
+
+    // 2. Resilient In-Memory User Store
     let user = MEMORY_USERS.find((u) => u.email === cleanEmail);
     if (!user) {
       user = {
-        id: `google-${google_id || Date.now()}`,
+        id: `google-${firebaseUid}`,
         email: cleanEmail,
         password_hash: '',
         full_name: fullName,
@@ -268,6 +315,8 @@ router.post('/google', async (req: Request, res: Response): Promise<void> => {
         onboarding_completed: user.onboarding_completed,
         preferred_language: user.preferred_language,
         district: user.district,
+        city: user.city,
+        photo_url: photo_url || undefined,
       },
     });
   } catch (err: any) {

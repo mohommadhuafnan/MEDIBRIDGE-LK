@@ -38,6 +38,7 @@ export default function PrescriptionAnalysisPage() {
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [doctorNotes, setDoctorNotes] = useState('');
   const [rotation, setRotation] = useState(0);
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -109,13 +110,12 @@ export default function PrescriptionAnalysisPage() {
       });
     }, 1000);
 
-    // Send to Gemini AI via backend
+    // Send to Gemini AI via backend (direct Vision OCR on uploaded image)
     const res = await apiFetch('/prescriptions/analyze', {
       method: 'POST',
       body: JSON.stringify({
         imageBase64: imagePreview,
-        rawDoctorText:
-          'Rx: 1. Panadol 500mg tab 1-0-1 x 5 days, 2. Amoxil 500mg cap 1-1-1 x 5 days, 3. Losec 20mg cap 1-0-0 x 7 days',
+        rawDoctorText: doctorNotes.trim() ? doctorNotes.trim() : undefined,
       }),
     });
 
@@ -268,6 +268,21 @@ export default function PrescriptionAnalysisPage() {
                       alt="Prescription Preview"
                       style={{ transform: `rotate(${rotation}deg)` }}
                       className="max-h-[360px] object-contain transition-transform duration-300 rounded-lg shadow-sm"
+                    />
+                  </div>
+
+                  {/* Optional Handwritten Notes Input */}
+                  <div className="space-y-1 text-left">
+                    <label className="text-xs font-semibold text-slate-700 flex items-center justify-between">
+                      <span>Doctor notes or illegible instructions</span>
+                      <span className="text-[11px] text-slate-400 font-normal">Optional</span>
+                    </label>
+                    <textarea
+                      value={doctorNotes}
+                      onChange={(e) => setDoctorNotes(e.target.value)}
+                      placeholder="e.g. If specific instructions or doctor notes are hard to read, you can type them here..."
+                      rows={2}
+                      className="w-full p-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
                     />
                   </div>
 
