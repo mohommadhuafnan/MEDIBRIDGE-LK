@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import MedicalDisclaimer from '../components/MedicalDisclaimer';
 import CinematicVideoShowcase from '../components/CinematicVideoShowcase';
+import GoogleReviewsSection from '../components/GoogleReviewsSection';
 import { useLanguage } from '../context/LanguageContext';
 import { formatLKR } from '../lib/api';
 import {
@@ -403,10 +403,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* MEDICAL DISCLAIMER BANNER IN CONTAINER */}
-        <section className="py-12 max-w-5xl mx-auto px-4 sm:px-6">
-          <MedicalDisclaimer />
-        </section>
+        {/* GOOGLE REVIEWS SECTION (SINGLE LINE INFINITE MARQUEE) */}
+        <GoogleReviewsSection />
 
         {/* CTA HERO BANNER */}
         <section className="py-16 bg-gradient-to-r from-brand-600 via-brand-700 to-medgreen-700 text-white relative overflow-hidden">

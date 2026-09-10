@@ -50,9 +50,11 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between py-3.5">
         {/* Professional Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-sm group-hover:bg-brand-700 transition-colors">
-            <Activity className="w-5 h-5" />
-          </div>
+          <img
+            src="/logo.png"
+            alt="MediBridge LK Official Logo"
+            className="w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-xl shadow-2xs group-hover:scale-105 transition-transform"
+          />
           <div>
             <div className="flex items-center gap-1.5 sm:gap-2">
               <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900">

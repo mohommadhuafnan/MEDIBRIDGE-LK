@@ -16,11 +16,11 @@ export default function Footer() {
           {/* Col 1 & 2: Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-medgreen-400 flex items-center justify-center p-0.5">
-                <div className="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
-                  <Activity className="w-5 h-5 text-brand-400" />
-                </div>
-              </div>
+              <img
+                src="/logo.png"
+                alt="MediBridge LK Official Logo"
+                className="w-10 h-10 object-contain rounded-xl bg-white p-1 shadow-sm"
+              />
               <span className="text-2xl font-bold text-white tracking-tight">
                 MediBridge <span className="text-brand-400">LK</span>
               </span>
