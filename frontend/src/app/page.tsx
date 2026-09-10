@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import MedicalDisclaimer from '../components/MedicalDisclaimer';
+import CinematicVideoShowcase from '../components/CinematicVideoShowcase';
 import { useLanguage } from '../context/LanguageContext';
 import { formatLKR } from '../lib/api';
 import {
@@ -693,6 +694,9 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* CINEMATIC VIDEO SHOWCASE WITH DYNAMIC TYPEWRITER TEXT */}
+        <CinematicVideoShowcase />
 
         {/* FEATURES SECTION (Section 11) */}
         <section id="features" className="py-20 bg-[#F8FAFC]">
