@@ -98,20 +98,24 @@ export default function HomePage() {
       <Navbar />
 
       <main className="flex-1">
-        {/* HERO SECTION */}
-        <section className="relative overflow-hidden pt-10 pb-16 lg:pt-16 lg:pb-24">
-          {/* Ambient Lighting Gradients */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[650px] pointer-events-none overflow-hidden -z-10">
-            <div className="absolute top-[-5%] left-[-10%] w-[520px] h-[520px] bg-brand-200/40 rounded-full blur-3xl animate-pulse-slow" />
-            <div className="absolute top-[15%] right-[-5%] w-[480px] h-[480px] bg-emerald-200/35 rounded-full blur-3xl animate-pulse-slow" />
-            <div className="absolute top-[50%] left-[30%] w-[400px] h-[400px] bg-sky-100/50 rounded-full blur-3xl" />
+        {/* HERO SECTION WITH USER BANNER BACKGROUND */}
+        <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+          {/* Hero Section Background Image & Scrim */}
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            <img
+              src="/hero-banner.jpg"
+              alt="MediBridge LK Pharmacy & Family Healthcare in Sri Lanka"
+              className="w-full h-full object-cover object-center"
+            />
+            {/* Elegant high-clarity scrim so background visual is visible while text remains 100% legible */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/92 via-white/82 to-[#F8FAFC]" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto space-y-6">
               
               {/* NMRA Regulatory Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-slate-200/90 shadow-subtle text-xs font-semibold text-slate-800">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-slate-200/90 shadow-sm text-xs font-semibold text-slate-800">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                 <span className="font-bold text-slate-900">Sri Lanka NMRA Gazette Aligned</span>
                 <span className="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-bold border border-emerald-200/60">
@@ -128,7 +132,7 @@ export default function HomePage() {
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-slate-700 font-medium leading-relaxed max-w-2xl mx-auto">
                 Instantly read physician handwriting, identify active chemical molecules, and discover official NMRA price caps &amp; Rajya Osu Sala generic options across Sri Lanka.
               </p>
 
@@ -144,7 +148,7 @@ export default function HomePage() {
                     value={homeSearch}
                     onChange={(e) => setHomeSearch(e.target.value)}
                     placeholder="Search medicine brand or generic (e.g. Lipitor, Panadol, Losec)..."
-                    className="w-full pl-11 pr-28 py-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
+                    className="w-full pl-11 pr-28 py-3.5 rounded-2xl bg-white/95 backdrop-blur-sm border border-slate-200 shadow-md text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
                   />
                   <button
                     type="submit"
@@ -157,7 +161,7 @@ export default function HomePage() {
 
               {/* Popular Sri Lankan Medicine Quick Chips */}
               <div className="pt-1">
-                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-2">
                   Popular In Sri Lanka (Click to check price):
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-2">
@@ -172,9 +176,9 @@ export default function HomePage() {
                       key={med.name}
                       type="button"
                       onClick={() => handleQuickPillClick(med.name)}
-                      className="px-3 py-1 rounded-xl text-xs font-medium bg-white hover:bg-brand-50 hover:border-brand-200 border border-slate-200 text-slate-700 shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
+                      className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/95 hover:bg-brand-50 hover:border-brand-300 border border-slate-200/90 text-slate-800 shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
                     >
-                      <Pill className="w-3 h-3 text-brand-500" />
+                      <Pill className="w-3 h-3 text-brand-600" />
                       <span>{med.name}</span>
                     </button>
                   ))}
@@ -185,7 +189,7 @@ export default function HomePage() {
               <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                 <Link
                   href="/dashboard/prescription"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-brand-600 to-medgreen-600 hover:from-brand-500 hover:to-medgreen-500 shadow-floating transition-all transform hover:scale-105"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-brand-600 to-medgreen-600 hover:from-brand-500 hover:to-medgreen-500 shadow-lg hover:shadow-brand-500/25 transition-all transform hover:scale-105"
                 >
                   <FileSearch className="w-4 h-4" />
                   <span>Scan Prescription Now</span>
@@ -193,55 +197,30 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/dashboard/medicines"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 shadow-sm transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-slate-800 bg-white/95 hover:bg-white border border-slate-200 shadow-md transition-all transform hover:scale-105"
                 >
                   <TrendingDown className="w-4 h-4 text-emerald-600" />
                   <span>Compare Medicine Prices</span>
                 </Link>
               </div>
 
-              {/* User Uploaded Hero Banner Showcase */}
-              <div className="pt-6 sm:pt-10">
-                <Link
-                  href="/dashboard/prescription"
-                  className="group block relative rounded-3xl overflow-hidden shadow-floating border border-slate-200/90 bg-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  <img
-                    src="/hero-banner.jpg"
-                    alt="MediBridge LK Pharmacy & Family Healthcare in Sri Lanka"
-                    className="w-full h-auto object-cover max-h-[560px] rounded-3xl"
-                  />
-                  
-                  {/* Floating Badges on Image */}
-                  <div className="absolute top-3 sm:top-5 right-3 sm:right-5 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200 shadow-sm text-xs font-bold text-slate-800 pointer-events-none">
-                    <Sparkles className="w-3.5 h-3.5 text-brand-600" />
-                    <span>Gemini 3.6 Flash Active</span>
-                  </div>
-
-                  <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 backdrop-blur-md border border-white/20 text-xs font-semibold text-white pointer-events-none shadow-lg">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Official NMRA Verified Medicine Database</span>
-                  </div>
-                </Link>
-              </div>
-
               {/* Trust Badges Bar */}
               <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center max-w-4xl mx-auto">
-                <div className="p-3 rounded-2xl bg-white/80 border border-slate-200/80 shadow-2xs">
+                <div className="p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 shadow-sm">
                   <p className="text-xl sm:text-2xl font-extrabold text-slate-900">100%</p>
-                  <p className="text-[11px] text-slate-500 font-medium">Deterministic Rule Matching</p>
+                  <p className="text-[11px] text-slate-600 font-semibold">Deterministic Rule Matching</p>
                 </div>
-                <div className="p-3 rounded-2xl bg-white/80 border border-slate-200/80 shadow-2xs">
+                <div className="p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 shadow-sm">
                   <p className="text-xl sm:text-2xl font-extrabold text-emerald-600">60%+</p>
-                  <p className="text-[11px] text-slate-500 font-medium">Potential Generic Savings</p>
+                  <p className="text-[11px] text-slate-600 font-semibold">Potential Generic Savings</p>
                 </div>
-                <div className="p-3 rounded-2xl bg-white/80 border border-slate-200/80 shadow-2xs">
+                <div className="p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 shadow-sm">
                   <p className="text-xl sm:text-2xl font-extrabold text-brand-600">3 Languages</p>
-                  <p className="text-[11px] text-slate-500 font-medium">EN, සිංහල, தமிழ்</p>
+                  <p className="text-[11px] text-slate-600 font-semibold">EN, සිංහල, தமிழ்</p>
                 </div>
-                <div className="p-3 rounded-2xl bg-white/80 border border-slate-200/80 shadow-2xs">
+                <div className="p-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200/80 shadow-sm">
                   <p className="text-xl sm:text-2xl font-extrabold text-indigo-600">500+</p>
-                  <p className="text-[11px] text-slate-500 font-medium">Pharmacies Across Sri Lanka</p>
+                  <p className="text-[11px] text-slate-600 font-semibold">Pharmacies Across Sri Lanka</p>
                 </div>
               </div>
 
