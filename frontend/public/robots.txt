@@ -1,0 +1,3 @@
+# robots.txt for MediBridge LK
+User-agent: *
+Allow: /
