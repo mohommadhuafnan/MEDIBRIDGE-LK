@@ -34,8 +34,8 @@ async function callGemini(prompt: string, imageBase64?: string, mimeType: string
     // Strip data URI prefix if present
     const cleanBase64 = imageBase64.replace(/^data:image\/[a-z]+;base64,/, '');
     parts.unshift({
-      inline_data: {
-        mime_type: mimeType,
+      inlineData: {
+        mimeType: mimeType || 'image/jpeg',
         data: cleanBase64,
       },
     });
@@ -43,14 +43,14 @@ async function callGemini(prompt: string, imageBase64?: string, mimeType: string
 
   for (const model of GEMINI_MODELS) {
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
       const response = await axios.post(
         url,
         { contents: [{ parts }] },
         {
           headers: {
             'Content-Type': 'application/json',
-            'X-goog-api-key': GEMINI_API_KEY,
+            'x-goog-api-key': GEMINI_API_KEY,
           },
           timeout: 25000,
         }

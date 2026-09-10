@@ -47,6 +47,7 @@ export default function PrescriptionAnalysisPage() {
   // Extraction results
   const [extractedData, setExtractedData] = useState<any | null>(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
   const [confirmedData, setConfirmedData] = useState<any | null>(null);
 
   // Editable items
@@ -130,23 +131,30 @@ export default function PrescriptionAnalysisPage() {
   };
 
   const handleConfirmOCR = async () => {
-    // Post to confirm and calculate final pricing
-    const res = await apiFetch('/prescriptions/confirm', {
-      method: 'POST',
-      body: JSON.stringify({
-        patient_name: extractedData?.patient_name || 'Patient',
-        doctor_name: extractedData?.doctor_name || 'Consultant Doctor',
-        clinic_name: extractedData?.clinic_or_hospital || 'Medical Centre',
-        prescription_date: extractedData?.prescription_date || new Date(),
-        image_url: imagePreview,
-        raw_ocr_text: extractedData?.raw_text || '',
-        confirmed_items: editableMedicines,
-      }),
-    });
+    setIsConfirming(true);
+    try {
+      // Post to confirm and calculate final pricing
+      const res = await apiFetch('/prescriptions/confirm', {
+        method: 'POST',
+        body: JSON.stringify({
+          patient_name: extractedData?.patient_name || 'Patient',
+          doctor_name: extractedData?.doctor_name || 'Consultant Doctor',
+          clinic_name: extractedData?.clinic_or_hospital || 'Medical Centre',
+          prescription_date: extractedData?.prescription_date || new Date(),
+          image_url: imagePreview,
+          raw_ocr_text: extractedData?.raw_text || '',
+          confirmed_items: editableMedicines,
+        }),
+      });
 
-    if (res.success) {
+      if (res && res.success) {
+        setConfirmedData(res.data || res.cost_summary);
+      }
+    } catch (e) {
+      console.warn('[Confirm OCR error]:', e);
+    } finally {
       setIsConfirmed(true);
-      setConfirmedData(res.data || res.cost_summary);
+      setIsConfirming(false);
     }
   };
 
@@ -473,11 +481,21 @@ export default function PrescriptionAnalysisPage() {
                 </button>
                 <button
                   type="button"
+                  disabled={isConfirming}
                   onClick={handleConfirmOCR}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-brand-600 to-medgreen-600 hover:from-brand-700 hover:to-medgreen-700 shadow-floating btn-glow transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-brand-600 to-medgreen-600 hover:from-brand-700 hover:to-medgreen-700 shadow-floating btn-glow transition-all disabled:opacity-80"
                 >
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Confirm Extracted Details & Calculate Costs</span>
+                  {isConfirming ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <span>Calculating NMRA Costs & Savings...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>Confirm Extracted Details & Calculate Costs</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>

@@ -90,8 +90,8 @@ router.post('/analyze', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// Confirm & save prescription
-router.post('/confirm', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+// Confirm & save prescription (supports both logged-in patients and guest visitors)
+router.post('/confirm', async (req: any, res: Response): Promise<void> => {
   try {
     const {
       patient_name,
