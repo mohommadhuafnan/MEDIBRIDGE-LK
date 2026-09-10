@@ -30,6 +30,54 @@ import {
 
 export default function HomePage() {
   const { t } = useLanguage();
+  const [activeScenario, setActiveScenario] = useState<number>(0);
+
+  const SCENARIOS = [
+    {
+      id: 0,
+      tab: 'Cardio & Cholesterol',
+      condition: 'Hyperlipidemia / Heart Care',
+      prescribedBrand: 'Lipitor 20mg',
+      activeMolecule: 'Atorvastatin Calcium',
+      dosage: '1 Tablet nightly (Nocte) • 30 Days',
+      prescribedPrice: 3600,
+      genericName: 'Storvas 20 / SPC Rajya Osu Sala',
+      genericPrice: 1350,
+      savingsAmount: 2250,
+      savingsPercent: 62.5,
+      doctorNote: 'Rx: Lipitor 20mg nocte x 30 tabs',
+    },
+    {
+      id: 1,
+      tab: 'Diabetes Care',
+      condition: 'Type 2 Glycemic Control',
+      prescribedBrand: 'Glucophage 500mg',
+      activeMolecule: 'Metformin Hydrochloride',
+      dosage: '1 Tablet twice daily (bd cc) • 60 Days',
+      prescribedPrice: 1170,
+      genericName: 'Metformin SPC Rajya Osu Sala',
+      genericPrice: 390,
+      savingsAmount: 780,
+      savingsPercent: 66.7,
+      doctorNote: 'Rx: Glucophage 500mg bd cc x 60 tabs',
+    },
+    {
+      id: 2,
+      tab: 'Gastric & Acid Relief',
+      condition: 'GERD & Peptic Protection',
+      prescribedBrand: 'Losec 20mg',
+      activeMolecule: 'Omeprazole',
+      dosage: '1 Capsule morning before food (m.ac) • 30 Days',
+      prescribedPrice: 1500,
+      genericName: 'Omeprazole 20mg SPC Generic',
+      genericPrice: 480,
+      savingsAmount: 1020,
+      savingsPercent: 68.0,
+      doctorNote: 'Rx: Losec 20mg m.ac x 30 caps',
+    },
+  ];
+
+  const current = SCENARIOS[activeScenario];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
@@ -37,53 +85,83 @@ export default function HomePage() {
 
       <main className="flex-1">
         {/* HERO SECTION */}
-        <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-32">
-          {/* Subtle Ambient Background */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none overflow-hidden -z-10">
-            <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand-100/50 rounded-full blur-3xl" />
-            <div className="absolute top-[20%] right-[-5%] w-[450px] h-[450px] bg-medgreen-100/40 rounded-full blur-3xl" />
-            <div className="absolute top-[50%] left-[30%] w-[400px] h-[400px] bg-sky-100/40 rounded-full blur-3xl" />
+        <section className="relative overflow-hidden pt-10 pb-20 lg:pt-16 lg:pb-28">
+          {/* Subtle Dynamic Ambient Lighting */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[650px] pointer-events-none overflow-hidden -z-10">
+            <div className="absolute top-[-8%] left-[-12%] w-[540px] h-[540px] bg-brand-200/40 rounded-full blur-3xl animate-pulse-slow" />
+            <div className="absolute top-[18%] right-[-8%] w-[500px] h-[500px] bg-emerald-200/35 rounded-full blur-3xl animate-pulse-slow" />
+            <div className="absolute top-[52%] left-[28%] w-[420px] h-[420px] bg-sky-100/50 rounded-full blur-3xl" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+              
               {/* Left Column: Headlines & CTA */}
               <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
-                {/* NMRA Regulatory Pill */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-subtle text-xs font-semibold text-slate-700">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Aligned with NMRA Sri Lanka Price Gazette</span>
+                {/* NMRA Regulatory Pill with pulsing live indicator */}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-slate-200/90 shadow-subtle text-xs font-semibold text-slate-800">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                  <span className="font-bold text-slate-900">Sri Lanka NMRA Gazette Aligned</span>
+                  <span className="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-bold border border-emerald-200/60">
+                    MRP Ceilings Active
+                  </span>
                 </div>
 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.12]">
                   Understand Your Prescription.{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-sky-600 to-medgreen-600">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-sky-600 to-emerald-600">
                     Know Your Medicine.
                   </span>{' '}
                   Save Smarter.
                 </h1>
 
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  MediBridge LK uses AI to help you understand prescriptions, identify medicines, estimate costs and compare available medicine options across Sri Lanka.
+                  Instantly read physician handwriting, identify active chemical molecules, and discover official NMRA price caps &amp; Rajya Osu Sala generic options across Sri Lanka.
                 </p>
 
                 {/* Main CTAs */}
-                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
+                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-1">
                   <Link
                     href="/dashboard/prescription"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-base font-bold text-white bg-gradient-to-r from-brand-600 to-medgreen-600 hover:from-brand-700 hover:to-medgreen-700 shadow-floating btn-glow transition-all"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl text-base font-bold text-white bg-gradient-to-r from-brand-600 to-emerald-600 hover:from-brand-700 hover:to-emerald-700 shadow-floating btn-glow transition-all"
                   >
                     <FileSearch className="w-5 h-5" />
                     <span>{t('Analyze Prescription')}</span>
+                    <ArrowRight className="w-4 h-4 ml-1" />
                   </Link>
 
                   <Link
                     href="/dashboard/medicines"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-base font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 shadow-subtle transition-all"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-base font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-subtle transition-all"
                   >
                     <Pill className="w-5 h-5 text-brand-600" />
                     <span>{t('Explore Medicines')}</span>
                   </Link>
+                </div>
+
+                {/* Popular Sri Lankan Medicine Chips */}
+                <div className="pt-2">
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                    Popular In Sri Lanka (Click to check price):
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                    {[
+                      { name: 'Panadol 500mg', tag: 'Paracetamol' },
+                      { name: 'Lipitor 20mg', tag: 'Atorvastatin' },
+                      { name: 'Glucophage 500mg', tag: 'Metformin' },
+                      { name: 'Amoxil 500mg', tag: 'Amoxicillin' },
+                      { name: 'Losec 20mg', tag: 'Omeprazole' },
+                    ].map((med) => (
+                      <Link
+                        key={med.name}
+                        href="/dashboard/medicines"
+                        className="px-3 py-1 rounded-xl text-xs font-medium bg-white hover:bg-brand-50 hover:border-brand-200 border border-slate-200 text-slate-700 shadow-2xs transition-all flex items-center gap-1.5"
+                      >
+                        <Pill className="w-3 h-3 text-brand-500" />
+                        <span>{med.name}</span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Trust Badges */}
@@ -103,101 +181,181 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Right Column: Hero Visualizer (Prescription -> AI Extraction -> Comparison) */}
+              {/* Right Column: Premium AI Prescription Intelligence Console */}
               <div className="lg:col-span-6 relative">
-                <div className="relative glass-panel rounded-3xl p-5 sm:p-7 shadow-floating border border-white/90">
-                  {/* Visualizer Header */}
-                  <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-rose-400" />
-                      <div className="w-3 h-3 rounded-full bg-amber-400" />
-                      <div className="w-3 h-3 rounded-full bg-emerald-400" />
-                      <span className="text-xs font-semibold text-slate-600 ml-2">
-                        Live AI Extraction Pipeline
-                      </span>
-                    </div>
-                    <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 flex items-center gap-1">
-                      <Activity className="w-3 h-3 animate-pulse" /> Verified Active
-                    </span>
+                
+                {/* Floating Micro-Badge Top Right */}
+                <div className="hidden sm:flex absolute -top-5 -right-4 z-20 items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/95 border border-slate-200/80 shadow-floating backdrop-blur-md text-xs animate-float-y">
+                  <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                    <Sparkles className="w-3.5 h-3.5" />
                   </div>
-
-                  {/* Visualizer Step 1: Doctor Handwritten Prescription Note */}
-                  <div className="p-3.5 bg-slate-50/90 rounded-2xl border border-slate-200/80 mb-3 space-y-2">
-                    <div className="flex items-center justify-between text-xs text-slate-500">
-                      <span className="font-semibold uppercase tracking-wider text-[10px] text-slate-400">
-                        1. Handwritten Doctor Prescription (Uploaded)
-                      </span>
-                      <span>Colombo Hospital</span>
-                    </div>
-                    <div className="font-serif italic text-slate-700 text-sm bg-amber-50/50 p-2.5 rounded-lg border border-amber-200/60 font-medium">
-                      &ldquo;Rx: Lipitor 20mg nocte x 30 | Glucophage 500mg bd cc x 60&rdquo;
-                    </div>
+                  <div>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Vision Engine</p>
+                    <p className="font-extrabold text-slate-800 text-xs">Gemini 3.6 Flash Active</p>
                   </div>
+                </div>
 
-                  {/* Connecting Arrow */}
-                  <div className="flex justify-center my-1">
-                    <div className="w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs">
-                      ↓
-                    </div>
+                {/* Floating Micro-Badge Bottom Left */}
+                <div className="hidden sm:flex absolute -bottom-5 -left-4 z-20 items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/95 border border-slate-200/80 shadow-floating backdrop-blur-md text-xs animate-float-y" style={{ animationDelay: '1.5s' }}>
+                  <div className="w-7 h-7 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-bold text-xs shadow-xs">
+                    <ShieldCheck className="w-4 h-4" />
                   </div>
+                  <div>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Price Gazette</p>
+                    <p className="font-extrabold text-slate-800 text-xs">Maximum Retail Price Ceiling</p>
+                  </div>
+                </div>
 
-                  {/* Visualizer Step 2: AI Extracted Details */}
-                  <div className="p-3.5 bg-white rounded-2xl border border-brand-200/80 shadow-sm mb-3 space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-brand-700 uppercase tracking-wider flex items-center gap-1">
-                        <Sparkles className="w-3 h-3" /> 2. AI Identified Active Ingredients
-                      </span>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
-                        96% Confidence
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className="p-2 bg-slate-50 rounded-lg">
-                        <p className="text-slate-400 text-[10px]">Identified Drug</p>
-                        <p className="font-bold text-slate-800">Atorvastatin 20mg</p>
+                {/* Main Console Container */}
+                <div className="relative rounded-3xl border border-slate-200/90 shadow-[0_20px_50px_-15px_rgba(2,132,199,0.16)] bg-white/95 backdrop-blur-xl p-5 sm:p-7 overflow-hidden space-y-5">
+                  
+                  {/* Console Header Bar */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-100">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-xl bg-brand-50 border border-brand-200/60 text-brand-600 flex items-center justify-center shadow-xs">
+                        <Activity className="w-4 h-4" />
                       </div>
-                      <div className="p-2 bg-slate-50 rounded-lg">
-                        <p className="text-slate-400 text-[10px]">Dosage Form</p>
-                        <p className="font-bold text-slate-800">Tablet (Nightly)</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Connecting Arrow */}
-                  <div className="flex justify-center my-1">
-                    <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
-                      ↓
-                    </div>
-                  </div>
-
-                  {/* Visualizer Step 3: NMRA Comparable Products & Savings */}
-                  <div className="p-4 bg-gradient-to-br from-emerald-50 to-teal-50/50 rounded-2xl border border-emerald-200 shadow-sm space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-emerald-900 uppercase tracking-wider">
-                        3. Comparable Product & Savings
-                      </span>
-                      <span className="text-xs font-extrabold text-emerald-700 bg-white px-2 py-0.5 rounded shadow-xs">
-                        Save Rs. 2,250 (62.5%)
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs pt-1">
                       <div>
-                        <p className="text-[10px] text-slate-500">Brand Name Prescribed</p>
-                        <p className="font-semibold text-slate-800">Lipitor 20mg — Rs. 3,600.00</p>
+                        <div className="flex items-center gap-2">
+                          <span className="font-extrabold text-sm text-slate-900">
+                            Prescription Scanner
+                          </span>
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        </div>
+                        <p className="text-[11px] text-slate-500 font-medium">Real-Time Optical AI Recognition</p>
+                      </div>
+                    </div>
+
+                    {/* Interactive Scenario Switcher Tabs */}
+                    <div className="flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl">
+                      {SCENARIOS.map((sc) => (
+                        <button
+                          key={sc.id}
+                          type="button"
+                          onClick={() => setActiveScenario(sc.id)}
+                          className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                            activeScenario === sc.id
+                              ? 'bg-white text-brand-700 shadow-xs'
+                              : 'text-slate-600 hover:text-slate-900'
+                          }`}
+                        >
+                          {sc.tab.split(' ')[0]}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Simulated Prescription Paper Pad with Laser Scanner */}
+                  <div className="relative rounded-2xl bg-gradient-to-b from-amber-50/40 via-white to-slate-50/60 border border-amber-200/70 p-4 overflow-hidden shadow-inner space-y-3">
+                    
+                    {/* Glowing Laser Scan Beam */}
+                    <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent shadow-[0_0_12px_2px_rgba(6,182,212,0.8)] pointer-events-none z-10 animate-laser-scan" />
+
+                    {/* Doctor Header & Patient Bar */}
+                    <div className="flex items-center justify-between text-[11px] pb-2 border-b border-dashed border-slate-200 text-slate-500">
+                      <div>
+                        <p className="font-extrabold text-slate-800 text-xs">National Hospital of Sri Lanka</p>
+                        <p className="text-[10px]">Dr. S. K. Perera (MBBS, MD) • SLMC #24981</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-[10px] text-emerald-700 font-bold">Potential Lower-Cost Option</p>
-                        <p className="font-bold text-emerald-800">Storvas 20 / SPC — Rs. 1,350.00</p>
+                        <span className="px-2 py-0.5 rounded bg-emerald-100/80 text-emerald-800 font-bold text-[10px]">
+                          Verified OCR
+                        </span>
+                        <p className="text-[10px] text-slate-400 mt-0.5">Patient: K. Bandara (46y)</p>
+                      </div>
+                    </div>
+
+                    {/* Handwritten Script Simulator */}
+                    <div className="bg-amber-50/60 rounded-xl p-3 border border-amber-200/50 flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 block mb-0.5">
+                          Doctor Handwritten Script
+                        </span>
+                        <p className="font-serif italic font-bold text-slate-800 text-sm">
+                          &ldquo;{current.doctorNote}&rdquo;
+                        </p>
+                      </div>
+                      <span className="text-[10px] font-bold text-emerald-700 bg-white px-2 py-1 rounded-md border border-emerald-200/80 shrink-0">
+                        98% AI Match
+                      </span>
+                    </div>
+
+                    {/* Extracted Brand vs Generic Comparison Card */}
+                    <div className="bg-white rounded-xl p-3.5 border border-slate-200 shadow-xs space-y-3">
+                      
+                      {/* Prescribed Drug Header */}
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-extrabold text-slate-900 text-sm">{current.prescribedBrand}</span>
+                            <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">
+                              Brand Name
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-500 mt-0.5">
+                            Active Molecule: <strong className="text-slate-700">{current.activeMolecule}</strong>
+                          </p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-[10px] text-slate-400 font-semibold uppercase">Brand MRP</p>
+                          <p className="text-sm font-extrabold text-slate-800">
+                            {formatLKR(current.prescribedPrice)}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Generic Equivalent Box (SPC / NMRA Gazette) */}
+                      <div className="p-3 rounded-lg bg-gradient-to-r from-emerald-50/80 to-teal-50/50 border border-emerald-200 flex items-center justify-between gap-2">
+                        <div className="space-y-0.5">
+                          <div className="flex items-center gap-1.5">
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                            <span className="text-xs font-bold text-emerald-950">
+                              {current.genericName}
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-emerald-700">
+                            State Pharmaceuticals Corporation (Same active molecule &amp; strength)
+                          </p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-[10px] text-emerald-800 font-semibold uppercase">Generic Cost</p>
+                          <p className="text-sm font-extrabold text-emerald-700">
+                            {formatLKR(current.genericPrice)}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Savings Pill Banner */}
+                      <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-emerald-600 text-white text-xs font-bold shadow-xs">
+                        <span className="flex items-center gap-1.5">
+                          <TrendingDown className="w-4 h-4" />
+                          <span>Calculated Prescription Savings</span>
+                        </span>
+                        <span>
+                          Save {formatLKR(current.savingsAmount)} ({current.savingsPercent}%)
+                        </span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Mini Safety Prompt */}
-                  <p className="text-[10px] text-slate-500 text-center mt-3">
-                    * Always consult a qualified doctor or pharmacist before changing any brand.
-                  </p>
+                  {/* Direct Action inside the visual */}
+                  <div className="flex items-center justify-between pt-1">
+                    <p className="text-[11px] text-slate-500 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      Free for Sri Lankan citizens
+                    </p>
+                    <Link
+                      href="/dashboard/prescription"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 hover:text-brand-700 hover:underline"
+                    >
+                      <span>Upload Your Doctor Slip Now</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+
                 </div>
               </div>
+
             </div>
           </div>
         </section>
