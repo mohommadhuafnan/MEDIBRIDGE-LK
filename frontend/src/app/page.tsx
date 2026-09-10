@@ -98,24 +98,19 @@ export default function HomePage() {
       <Navbar />
 
       <main className="flex-1">
-        {/* HERO SECTION WITH USER BANNER BACKGROUND */}
-        <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
-          {/* Hero Section Background Image & Scrim */}
-          <div className="absolute inset-0 -z-10 overflow-hidden">
-            <img
-              src="/hero-banner.jpg"
-              alt="MediBridge LK Pharmacy & Family Healthcare in Sri Lanka"
-              className="w-full h-full object-cover object-center"
-            />
-            {/* Elegant high-clarity scrim so background visual is visible while text remains 100% legible */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/92 via-white/82 to-[#F8FAFC]" />
-          </div>
+        {/* HERO SECTION WITH USER BANNER BACKGROUND IMAGE */}
+        <section 
+          className="relative bg-cover bg-center bg-no-repeat pt-10 pb-20 lg:pt-16 lg:pb-24 overflow-hidden border-b border-slate-200/60"
+          style={{ backgroundImage: "url('/hero-banner.jpg')" }}
+        >
+          {/* Balanced translucent overlay: preserves background artwork while ensuring 100% text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/65 to-white/85 backdrop-blur-[1px] pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto space-y-6">
               
               {/* NMRA Regulatory Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-slate-200/90 shadow-sm text-xs font-semibold text-slate-800">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-slate-200/90 shadow-sm text-xs font-semibold text-slate-800 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                 <span className="font-bold text-slate-900">Sri Lanka NMRA Gazette Aligned</span>
                 <span className="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-bold border border-emerald-200/60">
@@ -126,13 +121,13 @@ export default function HomePage() {
               {/* Dynamic Typewriter Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.14]">
                 Understand Your Prescription.{' '}
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-sky-600 to-emerald-600 min-h-[1.25em]">
+                <span className="block text-brand-700 min-h-[1.25em] drop-shadow-2xs">
                   {heroTypedText}
                   <span className="inline-block w-1 sm:w-1.5 h-8 sm:h-12 bg-brand-600 ml-1.5 animate-pulse align-middle" />
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-700 font-medium leading-relaxed max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-slate-800 font-semibold leading-relaxed max-w-2xl mx-auto drop-shadow-2xs">
                 Instantly read physician handwriting, identify active chemical molecules, and discover official NMRA price caps &amp; Rajya Osu Sala generic options across Sri Lanka.
               </p>
 
