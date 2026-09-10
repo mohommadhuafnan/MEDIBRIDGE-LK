@@ -1,0 +1,273 @@
+{
+  "info": {
+    "_postman_id": "medibridge-lk-api-collection",
+    "name": "MediBridge LK API",
+    "description": "Comprehensive Postman collection for testing MediBridge LK backend API endpoints (Local & Render live).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://medibridge-backend-36j2.onrender.com/api",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. System Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if MediBridge LK backend server is live and healthy."
+      }
+    },
+    {
+      "name": "2. Auth - Demo Login (Patient)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData.token) {",
+              "    pm.collectionVariables.set('authToken', jsonData.token);",
+              "    console.log('Saved token to collection:', jsonData.token);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"role\": \"PATIENT\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/demo-login",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "demo-login"]
+        },
+        "description": "Logs in as a demo Patient and automatically saves the JWT token for subsequent requests."
+      }
+    },
+    {
+      "name": "3. Auth - Register New User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"full_name\": \"Kusal Mendis\",\n  \"email\": \"kusal@example.com\",\n  \"password\": \"Test@1234\",\n  \"role\": \"PATIENT\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "4. Auth - Login User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData.token) {",
+              "    pm.collectionVariables.set('authToken', jsonData.token);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"kusal@example.com\",\n  \"password\": \"Test@1234\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "5. Auth - Google Sign-In Sync",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"patient.google@gmail.com\",\n  \"name\": \"Sunil Jayawardena\",\n  \"google_id\": \"firebase-uid-998877\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/google",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "google"]
+        }
+      }
+    },
+    {
+      "name": "6. Auth - Current User Profile (Protected)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/auth/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "me"]
+        }
+      }
+    },
+    {
+      "name": "7. Prescription - Gemini AI Doctor Notes OCR",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"rawDoctorText\": \"Rx: 1. Panadol 500mg tab 1-0-1 x 5 days, 2. Amoxil 500mg cap tds x 7 days, 3. Lipitor 20mg nocte x 30 days\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/prescriptions/analyze",
+          "host": ["{{baseUrl}}"],
+          "path": ["prescriptions", "analyze"]
+        },
+        "description": "Uses Google Gemini Flash AI to parse doctor handwriting, extract dosage instructions, and match against NMRA generics."
+      }
+    },
+    {
+      "name": "8. Medicines - List All",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/medicines",
+          "host": ["{{baseUrl}}"],
+          "path": ["medicines"]
+        }
+      }
+    },
+    {
+      "name": "9. Medicines - Search by Name or Molecule",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/medicines/search?q=panadol",
+          "host": ["{{baseUrl}}"],
+          "path": ["medicines", "search"],
+          "query": [
+            {
+              "key": "q",
+              "value": "panadol"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "10. Prices - Generic Price Comparison",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/prices/compare?ingredient=Paracetamol&strength=500 mg",
+          "host": ["{{baseUrl}}"],
+          "path": ["prices", "compare"],
+          "query": [
+            {
+              "key": "ingredient",
+              "value": "Paracetamol"
+            },
+            {
+              "key": "strength",
+              "value": "500 mg"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "11. Safety - Recall Alerts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/safety",
+          "host": ["{{baseUrl}}"],
+          "path": ["safety"]
+        }
+      }
+    },
+    {
+      "name": "12. Translation - Trilingual Medical Text (Sinhala)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Understand Your Medicine. Know Your Cost.\",\n  \"target_language\": \"si\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/translate",
+          "host": ["{{baseUrl}}"],
+          "path": ["translate"]
+        }
+      }
+    }
+  ]
+}
